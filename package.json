@@ -10,11 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@radix-ui/react-slot": "^1.2.3",
+    "@monaco-editor/react": "^4.7.0",
     "@reduxjs/toolkit": "^2.8.2",
     "@tailwindcss/vite": "^4.1.11",
     "axios": "^1.10.0",
-    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.0",
     "gsap": "^3.13.0",
@@ -28,8 +27,8 @@
     "react-router-dom": "^7.6.3",
     "react-simple-code-editor": "^0.14.1",
     "sonner": "^2.0.6",
-    "tailwind-merge": "^3.3.1",
-    "tailwindcss": "^4.1.11"
+    "tailwindcss": "^4.1.11",
+    "vm2": "^3.9.19"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",

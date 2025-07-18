@@ -9,12 +9,6 @@ import { toast } from "sonner";
 export const asyncLogin = (formData, navigate) => async (dispatch) => {
   try {
     dispatch(userRequest());
-    console.log(formData);
-  const fullURL = `${axios.defaults.baseURL}/user/login`;
-    console.log("Full URL:", fullURL);
-
-    
-    
     const { data } = await axios.post("/user/login", formData);
     console.log(data?.data?.user);
     dispatch(userSuccess(data?.data?.user));
@@ -44,7 +38,7 @@ export const asyncLogout = (navigate) => async (dispatch) => {
   try {
     dispatch(userRequest());
     console.log("run");
-    
+
     await axios.post("/user/logout");
     localStorage.removeItem("accessToken");
     localStorage.removeItem("userInfo");

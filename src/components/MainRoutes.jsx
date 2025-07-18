@@ -6,6 +6,7 @@ import Problems from "../pages/Problems";
 import ResumeReviewer from "../pages/ResumeReviewer";
 import Login from "../auth/Login";
 import Register from "../auth/Register";
+import SingleQuestion from "../pages/SingleQuesiton";
 function MainRoutes() {
   return (
     <>
@@ -16,6 +17,7 @@ function MainRoutes() {
         <Route path={"/problems"} element={<Problems />} />
         <Route path={"/interview"} element={<Interview />} />
         <Route path={"/resumereviewer"} element={<ResumeReviewer />} />
+        <Route path={"/submission/:id"} element={<SingleQuestion />} />
       </Routes>
     </>
   );

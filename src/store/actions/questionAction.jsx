@@ -5,6 +5,7 @@ import {
   getAllQuestion,
   getSingleQuestion,
   questionRequest,
+
 } from "../reducers/questionSlice";
 export const asyncGetQuestionsByPage = (page = 1, limit = 10) => async (dispatch) => {
   try {
@@ -22,9 +23,8 @@ export const asyncGetQuestionsByPage = (page = 1, limit = 10) => async (dispatch
 export const asyncGetSingleQuestion = (id) => async (dispatch) => {
   try {
     dispatch(questionRequest());
-
     const { data } = await axios.get(`/question/get-single/${id}`);
-    console.log(data?.data);
+
     
     dispatch(getSingleQuestion(data?.data)); // assuming API structure
   } catch (err) {

@@ -3,7 +3,7 @@ import { BsFillCheckCircleFill, BsCircle } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { asyncGetQuestionsByPage } from "../store/actions/questionAction";
 import { useNavigate } from "react-router-dom";
-
+import Loading from '../components/Loading'
 function Problems() {
   const dispatch = useDispatch();
   const { questions, questionLoading } = useSelector((state) => state.question);
@@ -66,7 +66,7 @@ function Problems() {
   const solvedCount = questions?.filter((p) => p.solved).length;
 
   return (
-    <div className="h-screen pt-20 flex overflow-hidden">
+    questionLoading?(<Loading/>):(<div className="h-screen pt-20 flex overflow-hidden">
       {/* Background Dots */}
       <div className="absolute inset-0 pointer-events-none z-0">
         {[...Array(100)].map((_, i) => (
@@ -146,7 +146,7 @@ function Problems() {
         {/* Question List */}
         <div className="space-y-3 pb-10">
           {filteredQuestions?.length === 0 && (
-            <p className="text-center text-gray-400">No problems found.</p>
+            <Loading/>
           )}
 
           {filteredQuestions?.map(
@@ -207,7 +207,7 @@ function Problems() {
           </div>
         </div>
       </div>
-    </div>
+    </div>)
   );
 }
 

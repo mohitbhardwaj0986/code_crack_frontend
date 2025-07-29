@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  questions: [],            // ✅ MUST be array for spreading
+  questions: [],            
   singleQuestion: null,
+ 
   questionLoading: false,
   questionError: null,
 };
@@ -13,6 +14,7 @@ const questionSlice = createSlice({
   reducers: {
     questionRequest: (state) => {
       state.questionLoading = true;
+
       state.questionError = null;
     },
 
@@ -23,6 +25,8 @@ const questionSlice = createSlice({
     },
 
     getSingleQuestion: (state, action) => {
+     
+      
       state.singleQuestion = action.payload;
       state.questionLoading = false;
     },
@@ -31,9 +35,9 @@ const questionSlice = createSlice({
       state.questionError = action.payload;
       state.questionLoading = false;
     },
-    
+
     clearQuestions: (state) => {
-      state.questions = []; // Optional: use if filters/search reset questions
+      state.questions = []; 
     }
   },
 });

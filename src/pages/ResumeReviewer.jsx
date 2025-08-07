@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "../axios/axios";
 import { motion, AnimatePresence } from "framer-motion";
-import Button from '../components/Button'
+import Button from "../components/Button";
+import ReactMarkdown from "react-markdown";
 function ResumeReviewer() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -11,11 +12,9 @@ function ResumeReviewer() {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setSelectedFile(file);
-    
+
     if (file && file.type.startsWith("image/")) {
       setPreviewUrl(URL.createObjectURL(file));
-     
-      
     } else {
       setPreviewUrl(null);
     }
@@ -44,8 +43,10 @@ function ResumeReviewer() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#150024] to-[#0B0414] dark:text-white flex
-     items-center justify-center px-4 py-12">
+    <div
+      className="min-h-screen bg-gradient-to-br from-[#150024] to-[#0B0414] dark:text-white flex
+     items-center justify-center px-4 py-20"
+    >
       <div className="absolute inset-0 pointer-events-none z-0">
         {[...Array(100)].map((_, i) => (
           <div
@@ -64,11 +65,12 @@ function ResumeReviewer() {
         transition={{ duration: 0.6 }}
         className="bg-white/70 dark:bg-[#2a2a2e]/50 backdrop-blur-lg rounded-[2rem] shadow-2xl p-10 max-w-6xl w-full grid md:grid-cols-2 gap-10 border border-gray-200 dark:border-gray-700"
       >
-        
         {/* Upload Panel */}
         <div className="flex flex-col justify-between">
           <div>
-            <h2 className="text-3xl font-extrabold text-indigo-700 dark:text-indigo-400 mb-4">📤 Upload Resume</h2>
+            <h2 className="text-3xl font-extrabold text-indigo-700 dark:text-indigo-400 mb-4">
+              📤 Upload Resume
+            </h2>
             <p className="text-gray-600 dark:text-gray-300 mb-6">
               Supported formats: <span className="font-medium">Image, PDF</span>
             </p>
@@ -105,7 +107,9 @@ function ResumeReviewer() {
 
         {/* Feedback Panel */}
         <div className="flex flex-col">
-          <h2 className="text-3xl font-extrabold text-purple-700 dark:text-purple-400 mb-4">🧠 AI Feedback</h2>
+          <h2 className="text-3xl font-extrabold text-purple-700 dark:text-purple-400 mb-4">
+            🧠 AI Feedback
+          </h2>
           <div className="flex-1 bg-white dark:bg-[#1c1c1e] border border-dashed border-purple-300 dark:border-purple-600 rounded-xl p-6 overflow-y-auto max-h-[460px] shadow-inner">
             <AnimatePresence>
               {loading ? (
@@ -127,7 +131,7 @@ function ResumeReviewer() {
                   transition={{ duration: 0.4 }}
                   className="whitespace-pre-wrap leading-relaxed text-gray-800 dark:text-gray-200"
                 >
-                  {aiFeedback}
+                  <ReactMarkdown>{aiFeedback}</ReactMarkdown>
                 </motion.div>
               ) : (
                 <motion.p

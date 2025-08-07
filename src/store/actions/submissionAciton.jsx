@@ -6,11 +6,13 @@ import {
   getUserSubmissionsForQuestionSuccess,
   submissionFailed,
   submissionRequest,
+  aisubmissionRequest,
 } from "../reducers/submissionSlice";
 
 // 1. GET submissions by user
 export const asyncGetSubmissionsByUser = (userId) => async (dispatch) => {
   try {
+    
     dispatch(submissionRequest());
     const { data } = await axios.get(
       `/submission/getsubmission-user/${userId}`
@@ -56,7 +58,7 @@ export const asyncGetUserSubmissionsForQuestion =
 
 export const asyncAiSubmission = (formData) => async (dispatch) => {
   try {
-    dispatch(submissionRequest()); 
+    dispatch(aisubmissionRequest()); 
    
 
     const { data } = await axios.post("/gemini/chat", {
@@ -71,3 +73,5 @@ export const asyncAiSubmission = (formData) => async (dispatch) => {
     console.log(error.response?.data?.message || error.message);
   }
 };
+
+

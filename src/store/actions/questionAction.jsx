@@ -7,14 +7,14 @@ import {
   questionRequest,
 
 } from "../reducers/questionSlice";
-export const asyncGetQuestionsByPage = (page = 1, limit = 10) => async (dispatch) => {
+export const asyncGetQuestionsByPage = () => async (dispatch) => {
   try {
     dispatch(questionRequest());
 
-    const { data } = await axios.get(`/question/get-all?page=${page}&limit=${limit}`);
-    dispatch(getAllQuestion(data.data.questions));
+    const { data } = await axios.get(`/question/get-all`);
+ 
+    dispatch(getAllQuestion(data.data));
 
-    return data.data.totalPages; // 👈 return total pages
   } catch (error) {
     dispatch(failQuestion("Failed to fetch questions"));
     return 1; // fallback
@@ -32,3 +32,15 @@ export const asyncGetSingleQuestion = (id) => async (dispatch) => {
   }
 };
 
+export const asyncCreateQuestion = (questionData) => async (dispatch) => {
+  try {
+console.log(questionData);
+
+    const { data } = await axios.post("/question/create", questionData);
+console.log(data);
+
+
+  } catch (error) {
+    dispatch(createQuestionFail("Failed to create question"));
+  }
+};

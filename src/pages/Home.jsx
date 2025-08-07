@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Nav from "../components/Nav";
 import { motion } from "framer-motion";
 import {
@@ -15,6 +15,7 @@ import CodeEditor from "../components/CodeEditor";
 import AnimatedCodeBlock from "../components/AnimatedCodeBlock";
 import VerticalLetterScroll from "../components/VerticalLetterScroll";
 function Home() {
+
   return (
     <div className="relative w-full min-h-screen  overflow-hidden ">
       <section className="relative">

@@ -3,7 +3,9 @@ import { BsFillCheckCircleFill, BsCircle } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { asyncGetQuestionsByPage } from "../store/actions/questionAction";
 import { useNavigate } from "react-router-dom";
-import Loading from '../components/Loading'
+import Loading from "../components/Loading";
+import Button from "../components/Button";
+import { clearQuestions } from "../store/reducers/questionSlice";
 function Problems() {
   const dispatch = useDispatch();
   const { questions, questionLoading } = useSelector((state) => state.question);
@@ -18,27 +20,17 @@ function Problems() {
   const [selectedTags, setSelectedTags] = useState([]);
 
   // Fetch questions
-  useEffect(() => {
-    const fetchData = async () => {
-      const totalPages = await dispatch(asyncGetQuestionsByPage(page));
-      if (page >= totalPages) setHasMore(false);
-    };
-    if (hasMore) fetchData();
-  }, [page, hasMore, dispatch]);
+useEffect(() => {
+  dispatch(asyncGetQuestionsByPage());
 
-  // Infinite Scroll
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && hasMore && !questionLoading) {
-          setPage((prev) => prev + 1);
-        }
-      },
-      { threshold: 1 }
-    );
-    if (observerRef.current) observer.observe(observerRef.current);
-    return () => observer.disconnect();
-  }, [hasMore, questionLoading]);
+  return () => {
+    dispatch(clearQuestions()); // Cleanup when component unmounts
+  };
+}, []);
+
+const {user} = useSelector((state) => state.user) 
+const isauth = user.role
+
 
   const toggleTag = (tag) => {
     setSelectedTags((prev) =>
@@ -65,8 +57,10 @@ function Problems() {
 
   const solvedCount = questions?.filter((p) => p.solved).length;
 
-  return (
-    questionLoading?(<Loading/>):(<div className="h-screen pt-20 flex overflow-hidden">
+  return questionLoading ? (
+    <Loading />
+  ) : (
+    <div className="h-screen pt-20 flex overflow-hidden">
       {/* Background Dots */}
       <div className="absolute inset-0 pointer-events-none z-0">
         {[...Array(100)].map((_, i) => (
@@ -129,6 +123,7 @@ function Problems() {
       {/* Main Content */}
       <div className="w-[75%] px-6 pt-4 space-y-5 overflow-y-auto">
         {/* Header with Search */}
+        {isauth&&<Button onClick={() => navigete("/add/problem")}>add problem</Button>}
         <div className="flex justify-between px-5 items-center sticky top-0 z-10 py-2 bg-gray-900">
           <div className="text-xl font-semibold">All Problems</div>
           <input
@@ -145,58 +140,50 @@ function Problems() {
 
         {/* Question List */}
         <div className="space-y-3 pb-10">
-          {filteredQuestions?.length === 0 && (
-            <Loading/>
-          )}
+          {filteredQuestions?.length === 0 && <Loading />}
 
-          {filteredQuestions?.map(
-            (problem) => (
-              
-              (
-                <div
-                  onClick={() => navigete(`/submission/${problem?._id}`)}
-                  key={problem._id}
-                  className="bg-gray-800 hover:bg-gray-700 transition-all flex items-center px-5 py-4 rounded-xl justify-between shadow-md"
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="text-xl">
-                      {problem.solved ? (
-                        <BsFillCheckCircleFill className="text-green-400 text-2xl" />
-                      ) : (
-                        <BsCircle
-                          className={`text-2xl ${
-                            !problem?.staterCode ||
-                            problem.staterCode.length < 70
-                              ? "text-green-500"
-                              : "text-green-500"
-                          }`}
-                        />
-                      )}
-                    </span>
-                    <span className="font-medium">{problem.title}</span>
-                  </div>
-                  <div className="flex gap-6 items-center text-sm">
-                    <span className="text-yellow-300 font-mono">
-                      {Math.trunc(Math.random() * 100)}%
-                    </span>
-                    <span
-                      className={`capitalize font-semibold ${
-                        problem.difficulty === "easy"
-                          ? "text-green-400"
-                          : problem.difficulty === "medium"
-                          ? "text-yellow-400"
-                          : "text-red-400"
+          {filteredQuestions?.map((problem) => (
+            <div
+              onClick={() => navigete(`/submission/${problem?._id}`)}
+              key={problem._id}
+              className="bg-gray-800 hover:bg-gray-700 transition-all flex items-center px-5 py-4 rounded-xl justify-between shadow-md"
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-xl">
+                  {problem.solved ? (
+                    <BsFillCheckCircleFill className="text-green-400 text-2xl" />
+                  ) : (
+                    <BsCircle
+                      className={`text-2xl ${
+                        !problem?.staterCode || problem.staterCode.length < 70
+                          ? "text-green-500"
+                          : "text-green-500"
                       }`}
-                    >
-                      {problem.difficulty === "medium"
-                        ? "med."
-                        : problem.difficulty}
-                    </span>
-                  </div>
-                </div>
-              )
-            )
-          )}
+                    />
+                  )}
+                </span>
+                <span className="font-medium">{problem.title}</span>
+              </div>
+              <div className="flex gap-6 items-center text-sm">
+                <span className="text-yellow-300 font-mono">
+                  {Math.trunc(Math.random() * 100)}%
+                </span>
+                <span
+                  className={`capitalize font-semibold ${
+                    problem.difficulty === "easy"
+                      ? "text-green-400"
+                      : problem.difficulty === "medium"
+                      ? "text-yellow-400"
+                      : "text-red-400"
+                  }`}
+                >
+                  {problem.difficulty === "medium"
+                    ? "med."
+                    : problem.difficulty}
+                </span>
+              </div>
+            </div>
+          ))}
 
           <div ref={observerRef} className="text-center py-4 text-gray-400">
             {questionLoading
@@ -207,7 +194,7 @@ function Problems() {
           </div>
         </div>
       </div>
-    </div>)
+    </div>
   );
 }
 

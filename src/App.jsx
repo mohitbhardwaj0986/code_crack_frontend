@@ -10,7 +10,7 @@ function App() {
      <Nav/>
      <MainRoutes className="overflow-hidden"/>
      <Footer/>
-       <Toaster richColors position="top-center" />
+       <Toaster richColors position="bottom-right" />
     </div>
   )
 }

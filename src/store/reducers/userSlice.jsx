@@ -1,11 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
+let storageUser = null;
+try {
+  const userData = localStorage.getItem("userInfo");
+  if (userData && userData !== "undefined") {
+    storageUser = JSON.parse(userData);
+  }
+} catch (error) {
+  console.error("Invalid userInfo in localStorage", error);
+  storageUser = null;
+}
 
-const storageUser = localStorage.getItem("userInfo")
-  ? JSON.parse(localStorage.getItem("userInfo"))
-  : null;
-const storageToken = localStorage.getItem("accessToken")
-  ? localStorage.getItem("accessToken")
-  : null;
+const storageToken =
+  localStorage.getItem("accessToken") &&
+  localStorage.getItem("accessToken") !== "undefined"
+    ? localStorage.getItem("accessToken")
+    : null;
+
 const initialState = {
   user: storageUser,
   accessToken: storageToken,
@@ -23,6 +33,7 @@ const userSlice = createSlice({
     },
     userSuccess: (state, action) => {
       state.user = action.payload;
+      state.accessToken = action.payload;
       state.loading = false;
     },
     userFail: (state, action) => {

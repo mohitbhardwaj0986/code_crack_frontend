@@ -6,6 +6,7 @@ const initialState = {
   getUserSubmissionsForQuestion: [],
   aiSubmission: null,
   submissionLoading: false,
+  aisubmissionLoading: false,
   submissionError: null,
 };
 
@@ -15,6 +16,10 @@ const submissionSlice = createSlice({
   reducers: {
     submissionRequest: (state) => {
       state.submissionLoading = true;
+      state.submissionError = null;
+    },
+    aisubmissionRequest: (state) => {
+      state.aisubmissionLoading = true;
       state.submissionError = null;
     },
 
@@ -46,15 +51,15 @@ const submissionSlice = createSlice({
     },
 
     getAiSubmission: (state, action) => {
-      console.log(state.submissionLoading)
+    
       
       state.aiSubmission = action.payload;
-      state.submissionLoading = false;
+      state.aisubmissionLoading = false;
     },
 
     clearAiSubmission: (state) => {
       state.aiSubmission = null;
-      state.submissionLoading = false;
+      state.aisubmissionLoading = false;
     },
   },
 });
@@ -68,6 +73,7 @@ export const {
   clearSubmissions,
   getAiSubmission,
   clearAiSubmission,
+  aisubmissionRequest,
 } = submissionSlice.actions;
 
 export default submissionSlice.reducer;

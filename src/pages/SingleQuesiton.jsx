@@ -101,7 +101,7 @@ function SingleQuestion() {
     setCode(newSub[0]?.code ? newSub[0].code : singleQuestion.starterCode);
     toast.success("see in codeEditor");
   };
-  console.log(singleQuestion);
+ 
 
   return (questionLoading || !singleQuestion) ? (
     <Loading />

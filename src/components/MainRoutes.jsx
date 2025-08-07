@@ -18,7 +18,7 @@ const SingleQuestion = lazy(() => import("../pages/SingleQuesiton"));
 const Login = lazy(() => import("../auth/Login"));
 const Register = lazy(() => import("../auth/Register"));
 const PageNotFound = lazy(() => import("../pages/PageNotFound"));
-const Profile = lazy(() => import("../pages/Profile"));
+
 const Dashboard = lazy(() => import("../pages/dashboard/Dashboard"));
 
 function MainRoutes() {

@@ -8,7 +8,7 @@ function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  console.log(loading);
+ 
   
   const {
     register,

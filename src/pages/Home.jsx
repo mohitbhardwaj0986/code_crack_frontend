@@ -126,7 +126,7 @@ function Home() {
         </div>
       </section>
       <section>
-        <div className="relative w-full xl:py-15 pt-400 pb-20 text-center px-4 ">
+        <div className="relative w-full xl:py-15 pt-350 pb-20 text-center px-4 ">
           {/* Starry Background Dots */}
           <div className="absolute inset-0 pointer-events-none z-0">
             {[...Array(30)].map((_, i) => (

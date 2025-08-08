@@ -4,50 +4,52 @@ import Button from "../components/Button";
 import { asyncRegister } from "../store/actions/userAction";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+
 function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm();
+
   const submit = (data) => {
-    setLoading(true)
+    setLoading(true);
     dispatch(asyncRegister(data, navigate));
- 
   };
+
   return (
-    <div className=" h-screen  flex items-center justify-center bg-gradient-to-br from-[#000000] to-[#0a000b] relative overflow-hidden">
-      <div className="absolute  inset-0 pointer-events-none z-0">
+    <div className="h-screen py-10  flex items-center justify-center bg-gradient-to-br from-[#05000A] via-[#0d0013] to-[#0a000b] relative overflow-hidden">
+      {/* Animated particles */}
+      <div className="absolute inset-0 z-0">
         {[...Array(100)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-[2px] h-[2px] bg-white/20 rounded-full"
+            className="absolute w-[2px] h-[2px] bg-white/20 rounded-full animate-float"
             style={{
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${3 + Math.random() * 5}s`,
             }}
           />
         ))}
       </div>
-      {/* Outer Glow */}
-      <div className="absolute w-[500px] h-[500px] bg-[#6526B7] rounded-full blur-[150px] opacity-40 top-[20%] left-[10%] -z-10"></div>
-      <div className="absolute w-[400px] h-[400px] bg-[#6526B7] rounded-full blur-[120px] opacity-20 bottom-[10%] right-[5%] -z-10"></div>
 
-      {/* Login Card with glow animation */}
-      <div className="relative group w-[90%] max-w-sm p-8 mt-10 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md shadow-[0_0_60px_#6526B770] overflow-hidden">
-        {/* Moving glow line */}
-        <span className="absolute top-0 left-0 w-full h-full rounded-2xl pointer-events-none z-10 before:content-[''] before:absolute before:inset-0 before:rounded-2xl before:border-2 before:border-[#6526B7] before:animate-border-glow"></span>
+      {/* Floating orbs */}
+      <div className="absolute w-[500px] py-20 h-[500px] bg-gradient-to-r from-[#8C3EC1] to-[#1C0940] rounded-full blur-[160px] opacity-30 top-[15%] left-[5%] animate-pulse-slow"></div>
+      <div className="absolute w-[400px] h-[400px] bg-gradient-to-r from-[#1C0940] to-[#8C3EC1] rounded-full blur-[140px] opacity-20 bottom-[10%] right-[10%] animate-pulse-slow"></div>
 
-        {/* Content */}
-        <div className="relative  z-20">
+      {/* Card */}
+      <div className="relative group  w-[90%] max-w-sm p-8 mt-10 rounded-3xl border border-white/20 bg-[#300854] backdrop-blur-md shadow-[0_0_60px_#8C3EC170] overflow-hidden before:absolute before:inset-0 before:rounded-3xl before:border-2 before:border-transparent before:animate-borderSweep before:bg-gradient-to-r before:from-transparent before:via-[#30214F] before:to-transparent before:bg-[length:200%_100%]">
+        <div className="relative z-10">
           {/* Icon */}
-          <div className="w-20 h-20 rounded-full border-2 border-[#6526B7] mx-auto flex items-center justify-center mb-6">
+          <div className="w-20 h-20 rounded-full border-2 border-[#8C3EC1] mx-auto flex items-center justify-center mb-6 shadow-[0_0_25px_#8C3EC1]">
             <svg
-              className="w-10 h-10 text-[#6526B7]"
+              className="w-10 h-10 text-[#FF5CA0]"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
@@ -60,49 +62,54 @@ function Register() {
               />
             </svg>
           </div>
-          {/* Inputs */}
+
+          {/* Form */}
           <form onSubmit={handleSubmit(submit)}>
+            {/* Full Name */}
             <div className="mb-6">
-              <label>Full Name</label>
+              <label className="block text-sm font-semibold text-white mb-2">
+                Full Name
+              </label>
               <input
                 type="text"
-                placeholder="john doe"
-                className="w-full px-4 py-2 rounded-md bg-[#6526B7]/20 text-white placeholder-white/70 border border-[#6526B7]/40 focus:outline-none focus:ring-2 focus:ring-[#6526B7]"
+                placeholder="John Doe"
+                className="w-full px-4 py-3 rounded-lg bg-white/10 text-white placeholder-white/50 border border-white/20 focus:outline-none focus:ring-2 focus:ring-[#FF5CA0] transition"
                 {...register("fullName", { required: "Full Name is required" })}
               />
               {errors.fullName && (
-                <span className="text-[#6526B7] text-sm mt-1">
+                <p className="text-[#FF5CA0] text-sm mt-1">
                   {errors.fullName.message}
-                </span>
+                </p>
               )}
             </div>
+
+            {/* Email */}
             <div className="mb-6">
-              <label className="block text-sm font-medium text-white mb-1">
-                Email:
+              <label className="block text-sm font-semibold text-white mb-2">
+                Email
               </label>
               <input
                 type="email"
                 placeholder="example@example.com"
-                className="w-full px-4 py-2 rounded-md bg-[#6526B7]/20 text-white placeholder-white/70 border border-[#6526B7]/40 focus:outline-none focus:ring-2 focus:ring-[#6526B7]"
-                {...register("email", {
-                  required: "Email is required",
-                })}
+                className="w-full px-4 py-3 rounded-lg bg-white/10 text-white placeholder-white/50 border border-white/20 focus:outline-none focus:ring-2 focus:ring-[#FF5CA0] transition"
+                {...register("email", { required: "Email is required" })}
               />
               {errors.email && (
-                <p className="text-[#6526B7] text-sm mt-1">
+                <p className="text-[#FF5CA0] text-sm mt-1">
                   {errors.email.message}
                 </p>
               )}
             </div>
 
+            {/* Password */}
             <div className="mb-6">
-              <label className="block text-sm font-medium text-white mb-1">
-                Password:
+              <label className="block text-sm font-semibold text-white mb-2">
+                Password
               </label>
               <input
                 type="password"
                 placeholder="********"
-                className="w-full px-4 py-2 rounded-md bg-[#6526B7]/20 text-white placeholder-white/70 border border-[#6526B7]/40 focus:outline-none focus:ring-2 focus:ring-[#6526B7]"
+                className="w-full px-4 py-3 rounded-lg bg-white/10 text-white placeholder-white/50 border border-white/20 focus:outline-none focus:ring-2 focus:ring-[#FF5CA0] transition"
                 {...register("password", {
                   required: "Password is required",
                   minLength: {
@@ -112,22 +119,47 @@ function Register() {
                 })}
               />
               {errors.password && (
-                <p className="text-[#6526B7] text-sm mt-1">
+                <p className="text-[#FF5CA0] text-sm mt-1">
                   {errors.password.message}
                 </p>
               )}
             </div>
 
-            {/* Login Button */}
+            {/* Button */}
             <Button
               type="submit"
-              className="w-full py-2 mt-5 text-white bg-[#6526B7] hover:bg-[#5522a1] rounded-lg font-medium transition"
+              className="w-full py-3 mt-6 text-white font-bold text-lg rounded-xl bg-gradient-to-r  shadow-[0_0_20px_#FF5CA0] hover:shadow-[0_0_35px_#FF5CA0] hover:scale-[1.02] transition-all animate-pulse-slow"
             >
-              {loading?"Loading":"Submit"}
+              {loading ? "Loading..." : "Create Account"}
             </Button>
           </form>
         </div>
       </div>
+
+      {/* Animations */}
+      <style jsx>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
+        }
+        @keyframes borderSweep {
+          0% { background-position: 200% 0; }
+          100% { background-position: -200% 0; }
+        }
+        @keyframes pulse-slow {
+          0%, 100% { opacity: 0.3; transform: scale(1); }
+          50% { opacity: 0.5; transform: scale(1.05); }
+        }
+        .animate-float {
+          animation: float linear infinite;
+        }
+        .animate-borderSweep {
+          animation: borderSweep 6s linear infinite;
+        }
+        .animate-pulse-slow {
+          animation: pulse-slow 4s ease-in-out infinite;
+        }
+      `}</style>
     </div>
   );
 }

@@ -132,7 +132,7 @@ const Nav = () => {
                     </div>
                     <div className="flex flex-col">
                       <Link
-                        to={user?.role === "admin" ? "/dashboard" : "/profile"}
+                        to={"/dashboard"}
                         className="px-5 py-3 text-white hover:bg-purple-700/30 transition"
                       >
                         {user?.role === "admin" ? "Dashboard" : "Profile"}

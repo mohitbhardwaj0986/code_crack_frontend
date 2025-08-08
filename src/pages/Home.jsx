@@ -87,7 +87,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="h-screen w-[90%] gap-3 py-25 xl:flex relative mx-auto">
+      <section className="h-screen w-[90%] gap-3 pt-25 xl:flex relative mx-auto">
         {/* Glow or Gradient Background */}
         <div className="absolute inset-0">
           <div className="w-[400px] h-[400px] bg-[#6526B7] rounded-full blur-[180px] opacity-70 absolute bottom-[-100px] right-[-100px] z-0"></div>
@@ -126,7 +126,7 @@ function Home() {
         </div>
       </section>
       <section>
-        <div className="relative w-full xl:py-15 pt-400 pb-15 text-center px-4 ">
+        <div className="relative w-full xl:py-15 pt-400 pb-20 text-center px-4 ">
           {/* Starry Background Dots */}
           <div className="absolute inset-0 pointer-events-none z-0">
             {[...Array(30)].map((_, i) => (

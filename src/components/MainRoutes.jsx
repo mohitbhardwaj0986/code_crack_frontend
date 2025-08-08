@@ -33,7 +33,7 @@ function MainRoutes() {
           <Route path="/interview" element={<Interview />} />
           <Route path="/resumereviewer" element={<ResumeReviewer />} />
           <Route path="/submission/:id" element={<SingleQuestion />} />
-            <Route path="/admin/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/add/problem" element={<AddProblem />} />
          
         </Route>

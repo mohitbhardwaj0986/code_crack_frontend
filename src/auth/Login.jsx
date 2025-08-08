@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "../components/Button";
 import { asyncLogin } from "../store/actions/userAction";
@@ -7,6 +7,9 @@ import { useNavigate } from "react-router-dom";
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  console.log(loading);
+  
   const {
     register,
     handleSubmit,
@@ -15,8 +18,9 @@ function Login() {
   } = useForm();
 
   const submit = (data) => {
+    setLoading(true);
     dispatch(asyncLogin(data, navigate));
-    
+    setLoading(false);
   };
   return (
     <div className=" h-screen flex items-center justify-center bg-gradient-to-br from-[#000000] to-[#0a000b] relative overflow-hidden">
@@ -109,7 +113,7 @@ function Login() {
               type="submit"
               className="w-full py-2 mt-5 text-white bg-[#6526B7] hover:bg-[#5522a1] rounded-lg font-medium transition"
             >
-              LOGIN
+              {loading ? "Loading" : "Login"}
             </Button>
           </form>
         </div>

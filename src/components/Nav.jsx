@@ -176,8 +176,8 @@ const Nav = () => {
                     // navigate to profile page
                   }}
                 >
-                  <Link to={"/admin/dashboard"}>{user?.role==="admin"&&"Dashboard"}</Link>
-                  <Link to={"/profile"}>{user?.role==="candidate"&&"Profile"}</Link>
+                  <Link to={"/dashboard"}>{user?.role==="admin"?"Dashboard":"Profile"}</Link>
+                
                
                 </button>
                 <button

@@ -29,7 +29,7 @@ useEffect(() => {
 }, []);
 
 const {user} = useSelector((state) => state.user) 
-const isauth = user.role
+const isauth = user?.role
 
 
   const toggleTag = (tag) => {
@@ -54,6 +54,7 @@ const isauth = user.role
       .includes(searchTerm.toLowerCase());
     return matchesDifficulty && matchesTags && matchesSearch;
   });
+
 
   const solvedCount = questions?.filter((p) => p.solved).length;
 
@@ -123,7 +124,7 @@ const isauth = user.role
       {/* Main Content */}
       <div className="w-[75%] px-6 pt-4 space-y-5 overflow-y-auto">
         {/* Header with Search */}
-        {isauth&&<Button onClick={() => navigete("/add/problem")}>add problem</Button>}
+        {isauth==="admin"&&<Button onClick={() => navigete("/add/problem")}>add problem</Button>}
         <div className="flex justify-between px-5 items-center sticky top-0 z-10 py-2 bg-gray-900">
           <div className="text-xl font-semibold">All Problems</div>
           <input

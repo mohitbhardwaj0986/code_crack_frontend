@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "../components/Button";
 import { asyncRegister } from "../store/actions/userAction";
@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false)
   const {
     register,
     handleSubmit,
@@ -14,7 +15,9 @@ function Register() {
     formState: { errors },
   } = useForm();
   const submit = (data) => {
+    setLoading(true)
     dispatch(asyncRegister(data, navigate));
+    setLoading(false)
   };
   return (
     <div className=" h-screen  flex items-center justify-center bg-gradient-to-br from-[#000000] to-[#0a000b] relative overflow-hidden">
@@ -120,7 +123,7 @@ function Register() {
               type="submit"
               className="w-full py-2 mt-5 text-white bg-[#6526B7] hover:bg-[#5522a1] rounded-lg font-medium transition"
             >
-              LOGIN
+              {loading?"Loading":"Submit"}
             </Button>
           </form>
         </div>

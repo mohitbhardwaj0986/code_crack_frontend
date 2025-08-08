@@ -10,7 +10,7 @@ export const asyncLogin = (formData, navigate) => async (dispatch) => {
   try {
     dispatch(userRequest());
     const { data } = await axios.post("/user/login", formData);
-    console.log(data?.data?.user);
+   
     dispatch(userSuccess(data?.data?.user));
     localStorage.setItem("accessToken", data?.data?.accessToken);
     localStorage.setItem("userInfo", JSON.stringify(data?.data?.user));

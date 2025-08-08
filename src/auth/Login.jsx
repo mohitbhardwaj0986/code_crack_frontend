@@ -20,7 +20,7 @@ function Login() {
   const submit = (data) => {
     setLoading(true);
     dispatch(asyncLogin(data, navigate));
-    setLoading(false);
+    
   };
   return (
     <div className=" h-screen flex items-center justify-center bg-gradient-to-br from-[#000000] to-[#0a000b] relative overflow-hidden">
